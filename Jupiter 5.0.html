@@ -1,0 +1,1285 @@
+<!-- Hola, no deberías estar aquí, unicamente personas autorizadas tienen acceso al codigo de Jupiter- -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>> J U P I T E R <</title>
+    <!-- Fonts para Fira Code --><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Flatpickr --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<style>
+body {
+    background:
+        radial-gradient(50% 50% at 100% 0,#e5e5e5 0%  5% ,#eaeaea 6%  15%,#e5e5e5 16% 25%,#eaeaea 26% 35%,#e5e5e5 36% 45%,#eaeaea 46% 55%,#e5e5e5 56% 65%,#eaeaea 66% 75%,#e5e5e5 76% 85%,#eaeaea 86% 95%,#0000 96%),
+        radial-gradient(50% 50% at 0 100%,#e5e5e5 0%  5% ,#eaeaea 6%  15%,#e5e5e5 16% 25%,#eaeaea 26% 35%,#e5e5e5 36% 45%,#eaeaea 46% 55%,#e5e5e5 56% 65%,#eaeaea 66% 75%,#e5e5e5 76% 85%,#eaeaea 86% 95%,#0000 96%),
+        radial-gradient(50% 50%,#e5e5e5 0%  5% ,#eaeaea 6%  15%,#e5e5e5 16% 25%,#eaeaea 26% 35%,#e5e5e5 36% 45%,#eaeaea 46% 55%,#e5e5e5 56% 65%,#eaeaea 66% 75%,#e5e5e5 76% 85%,#eaeaea 86% 95%,#0000 96%),
+        radial-gradient(50% 50%,#e5e5e5 0%  5% ,#eaeaea 6%  15%,#e5e5e5 16% 25%,#eaeaea 26% 35%,#e5e5e5 36% 45%,#eaeaea 46% 55%,#e5e5e5 56% 65%,#eaeaea 66% 75%,#e5e5e5 76% 85%,#eaeaea 86% 95%,#0000 96%) 72px 72px;
+    background-size: 144px 144px;
+    background-color: #e5e5e5;
+    font-family: 'Fira Code', monospace;
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+}
+
+/* navbar */
+.navbar {
+    width: 990px;
+    height: 65px;
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding-right: 40px;
+}
+        li {
+            float: left;
+            list-style-type: none;
+        }
+        
+        li a {
+            display: block;
+            color: #272727;
+            padding: 14px;
+            text-decoration: none;
+            border-radius: 20PX;
+        }
+        
+        li a:hover:not(.active) {
+            background-color: #8CA0C1;
+            transition: background-color 0.3s ease; /* Transición suave */
+            cursor: pointer;
+            color: #FBF8F1;
+        }
+
+        #adsInput {
+            width: 70px;
+            margin-top: 15px;
+        }
+
+        #saveButton {
+            width: fit-content;
+        }
+
+.titulo {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold; 
+    color: #272727; 
+    font-family: 'Fira Code', monospace;
+}
+
+/* CONTENEDORES ------------------------------------------------------------ */
+
+#Cont1, #master, .container, #Final-note-container, #Category-container {
+    border-radius: 25px;
+    border: 2px solid rgb(255, 255, 255);
+    box-shadow: inset 25px 25px 28px rgba(255, 255, 255, 0.479);
+    background-color: rgba(255, 255, 255, 0.082);
+    margin: auto; /* Centra el contenedor horizontalmente */
+    max-width: 900px; /* Ancho máximo del contenedor */
+    scrollbar-width: none;
+    overflow-x: hidden;
+}
+
+.container {
+    height: 355px;
+    display: flex;
+    justify-content: space-between; /* Espacio entre columnas */
+    padding: 20px; /* Espaciado interno */
+}
+
+/* Inbound, VID, CIP, BAD ANI */
+#Cont1 {
+    align-content: center;
+    height: 295px; }
+
+/* Factores / Conversor / Shortcuts */
+#master {
+    align-content: center;
+    height: 400px; }
+
+/* Final Note / Sticky Note */
+#Final-note-container {
+    height: 342px;}
+
+#Category-container {
+    height: 185px;
+    padding: 20px; /* Espaciado interno */
+    padding-top: 1px;}
+
+#vid-result, #cip-result, #lista-final, #calendario, #notes-list {
+    box-shadow:0 2px 8px rgba(87, 87, 87, 0.2);}
+
+/* BUTTONS ------------------------------------------------------------------------------*/
+#reset-btn, #undo-btn, #copy-btn, #copy-cip-btn {width: 72px; background-color: #d2d4da;}
+#reset-btn:hover, #undo-btn:hover, #copy-btn:hover {background-color: #8CA0C1}
+
+#copy-both-btn, #BadAniButton, .NFYF, .FNoteBTN {width: auto; background-color: #d2d4da;}
+
+button:hover, .modal-content button:hover, #open-modal:hover, #copy-cip-btn:hover, #copy-both-btn:hover, #BadAniButton:hover {
+    background-color: #8CA0C1;
+    color: #FBF8F1;
+    transition: background-color 0.2s ease; /* Transición suave */
+    cursor: pointer;
+    transform: scale(1.070);
+}
+
+button {
+    background-color: #FBF8F1; 
+    color: #272727; /* Color del texto del botón */
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    width: 100px;
+    transition: background-color 0.2s ease; /* Transición suave */
+    margin-top: 12px;
+    font-weight: bold;}
+
+.SINFCTSBTN {
+    width: fit-content;
+    padding: 12px;
+    margin-left: 54px;
+    margin-top: 20px;}
+
+.FNL, #VIDBTN {
+    padding: 4px;
+    width: 70px;
+    margin: 2px;}
+
+.ICO {width: 91px;}
+
+/* LISTA DE FACTORES DE RIESGO ----------------------------------------------*/
+.opciones-lista {
+    list-style-type: none; /* Elimina viñetas */
+    padding: 0; /* Elimina el padding */
+    margin: 0; /* Elimina el margen */
+    font-size: small;
+    font-weight: bold;}
+.opciones-lista .opcion {
+    display: block; /* Cada opción en una nueva línea */
+    background-color: #FBF8F1; /* Fondo de cada opción */
+    color: #272727; /* Color de texto de las opciones */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    margin: 5px 0; /* Margen entre opciones */
+    text-align: center; /* Centra el texto */
+    cursor: pointer; /* Cambia el cursor al pasar sobre la opción */
+    transition: background-color 0.3s ease; /* Transición suave */
+    width: 150px;}
+.opciones-lista .opcion:hover {background-color: #8CA0C1; color: #FBF8F1;}
+#lista-column {flex: 0 0 200px; text-align: start;}
+#opciones-column {
+    margin-top: 5px;
+    flex: 0 0 20%;
+    max-height: 390px;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    align-content: center;}
+#lista-final {
+    white-space: pre-wrap; /* Mantiene el formato de espacio en blanco */
+    padding-right: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #FBF8F1; /* Fondo de la lista */
+    color: #272727;
+    width: 290px;}
+
+/* VARIOS -------------------------------------------------------------------*/
+#calendario-column {flex: 0 0 20%; max-height: 345px;}
+#calendario {
+    width: 258px;
+    padding: 8px;
+    border-radius: 15px;
+    border: 1px solid #FBF8F1;
+    background: #FBF8F1; 
+    color: #272727; 
+    padding-right: 25;
+    margin-left: 15px;
+    margin-top: 10px;}
+#EMR {color: rgb(214, 0, 0);} /* BOTON E CURRENCY CONVERSOR */
+.table {color: #272727;} /* COLOR DE TEXTO EN TABLA DE NOTA FINAL */
+#inbound-column, #notes-column, #vid-column, #cip-column {
+    flex: 33%;
+    font-weight: bold;
+    color: #272727;
+    margin-top: -17px;}
+.SColumn {
+    float: left;
+    width: 50%;
+    color: #272727;
+    font-weight: bold;}
+.NFYF {
+    width: 111px;
+    padding: 8px;
+    margin-left: 2px;}
+
+#FNoteT {padding-right: 190px;}
+    
+.FNoteBTN {
+    width: 100px;
+    padding: 8px;
+    margin-left: 6px;
+    margin-top: 10px;
+}
+
+.SLK {width: 145px;}
+#SLKSH {padding-top: 20px;}
+#submenus {padding-top: 5px;}
+
+/*VID AND CIP ---------------------------------------------------------------*/
+#vid-column, #cip-column {text-align: center;}
+#vid-column {margin-left: 22px;}
+#vid-result, #cip-result {
+    background: #FBF8F1;
+    width: 215px;
+    height: fit-content;
+    overflow: visible;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    margin-left: 29px;
+    text-align: left;
+    padding: 10px;}
+#cip {
+    background-color: #FBF8F1;
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+    width: 50px;
+    height: 30px;
+    border-radius: 15px;
+    color: #272727;}
+
+/* BAD ANI FETCHER --------------------------------------------------------- */
+
+#BadAni {text-align: center; margin-top: 25px;}
+#BadAniInput {
+    background-color: #FBF8F1;
+    font-weight: bold;
+    width: 155px;
+    height: 30px;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: medium;
+    font-size: medium;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+    
+#BadAniButton {height: 35px; width: 60px; font-weight: bold;}
+#BadAniResult {margin-top: -7px;}
+#BadAniButton, #BadAniInput {margin-top: -5px;}
+
+/* --------------------------------------------------------------------------*/
+
+#QUA {
+    margin: 0 auto;
+    text-align: center;
+    padding-left:15px;
+    padding-bottom: 10px;
+    width: 70px;
+}
+
+#notes-list {
+    color: #272727;
+    font-weight: bold;
+    width: 300px;
+    height: 253px;
+    background: #FBF8F1;
+    border-radius: 15px;
+    margin: 7px;
+    overflow-y: scroll;
+    padding: 15px;
+}
+
+/* CATEGORY --------------------------------------------------------------*/
+.modal {
+            display: none; 
+            position: fixed; 
+            z-index: 10; 
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
+            justify-content: center; align-items: center;}
+
+.modal-content {
+            background: #FBF8F1; padding: 24px 32px; border-radius: 15px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            width: 225px;
+            font-size: 15px; font-weight: bold; color: #272727;}
+        
+.modal-content input {
+            width: 210px;
+            padding: 6px; margin-top: 4px; border-radius: 10px;
+            background-color: #FBF8F1;
+            font-size: 15px; text-transform: uppercase;}
+
+.modal-content label { display: block; margin-top: 12px; }
+.modal-content button { margin-left: 65px; margin-top: 18px; padding: 8px 18px; border-radius: 15px; background: #E0E0E0; color: #272727; font-weight: bold; cursor: pointer; font-size: 14px;}
+
+#open-modal {
+            background-color: #FBF8F1;
+            color: #272727; text-align: center; font-weight: bold;
+            width: 180px;
+            margin: auto;
+            border-radius: 20px;
+            padding: 8px;
+            margin-top: 20px; margin-bottom: 20px;}
+
+.modal-content select {
+    background-color: #FBF8F1;
+    width: 225px; padding: 6px; margin-top: 4px; border-radius: 15px;
+    font-size: 15px; text-transform: uppercase;}
+
+/* Tabla de CATEGORY */
+.folio-table-container {margin:10px auto 0 auto; width: 850px;}
+
+.folio-table-scroll {
+            max-height:260px; 
+            overflow-y:auto; 
+            border-radius:15px; 
+            box-shadow:0 2px 8px rgba(0,0,0,0.08); 
+            background:#FBF8F1;}
+
+table#folios-table {
+            width:100%; 
+            border-collapse:collapse; 
+            min-width: 420px; 
+            font-size: 15px;}
+
+table#folios-table th, table#folios-table td {
+            padding: 6px; 
+            border-bottom: 1px solid #eee; 
+            font-size: 15px;
+            text-align: center;}
+
+table#folios-table th {
+            background:#f0f0f0; 
+            position:sticky; 
+            top:0; z-index:1; 
+            font-size: 15px; color: #272727;}
+
+table#folios-table td {
+            font-size: 15px; color: #272727;}
+
+table#folios-table td.globestar {
+            font-size: 15px;
+            text-align: left;}
+
+.footer {
+    text-align: center;
+    color: #272727;
+    padding-top: 20px;
+}
+</style>
+<body>
+
+    <div class="navbar">
+        <ul class="nav">
+            <li><a style="font-weight: bolder; font-size: larger;" onClick="window.location.reload();">> J U P I T E R <</a></li>
+            <li style="float: right;"><a onclick="UpdateAlert()">Updates ฅ^•ﻌ•^ฅ</a></li>
+            </li>   
+        </ul>
+    </div> 
+
+        <div class="container" id="Cont1">
+        
+            <div class="column" id="inbound-column">
+                <p class="titulo">Inbound Note</p>
+                <button id="DECL" class="ICO">Declined</button>
+                <button id="DESC" class="ICO">Fraud</button>
+                <button id="SFK" class="ICO">SFK</button>
+                <button id="P68" class="ICO">Wallet</button>
+                <button id="IDTO" class="ICO">MYCA</button>
+                <button id="ALERT" class="ICO">Alerta</button>
+                <button id="INFO" class="ICO">Other</button>
+                <button id="CEN" class="ICO">S Inactive</button>
+                <button id="PIP" class="ICO">PI Pegado</button>
+                <button id="INB" class="ICO">NO x IC</button>
+                <button id="YARI" class="ICO">Resuelta</button>
+                <button id="DIGI" class="ICO">Digital C</button>
+                <button id="INEF" class="ICO">INE FRAP</button>
+                <button id="MRZF" class="ICO">MRZ FRAP</button>
+            </div>
+
+            <div class="column" id="vid-column">
+                <p class="titulo">VID</p>
+                <div id="vid-result">
+                    -> VID:
+                </div>
+
+                <div>
+                    <button ID="VIDBTN" onclick="addToVidString(`OTP SMS OK`)">OTP SM</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`OTP MAIL OK`)">OTP MA</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`CPW OK`)">CPW</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`YOB OK`)">YOB</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`CID OK`)">CID</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`3CSC OK`)">3CSC</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`TEL M OK`)">TEL M</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`Nombre de adicional OK`)">ADDL</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`CRN OK`)">CRN</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`MAIL OK`)">MAIL</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`ANI MATCH OK`)">ANI M</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`Pasaporte con MRZ correcto, vigente, candados ok, recibido desde:`)">MRZ</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`INE vigente en LN, candados ok, recibido desde:`)">INE</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`Autenticador OK`)">AUTH</button>
+                    <button ID="VIDBTN" onclick="addToVidString(`RPC OK`)">RPC</button>
+                </div>
+
+                <div>
+                    <button id="reset-btn" onclick="resetVidString()">Reset</button>
+                    <button id="undo-btn" onclick="undoVidLast()">Undo</button>
+                    <button id="copy-btn" onclick="copyVidToClipboard()">Copy</button>
+                </div>
+                
+            </div>
+
+            <div class="column" id="cip-column">
+
+                <p class="titulo">CIP</p>
+                
+                <div id="cip-result">-> CIP:</div>
+                <div id="cip-message"></div>
+                <div class="buttons">
+                    <button id="VIDBTN" onclick="setCipOption('OK')">OK</button>
+                    <button id="VIDBTN" onclick="setCipOption('NO RECIBIDO')">NRC</button>
+                    <button id="VIDBTN" onclick="setCipOption('LOST')">LST</button>
+                    <button id="VIDBTN" onclick="setCipOption('STOLEN')">STLN</button>
+                    <button id="VIDBTN" onclick="setCipOption('SIN CONFIRMAR.')">No C</button>
+                    <button id="VIDBTN" onclick="setCipOption('DESTRUIDO.')">Destr</button>
+                </div>
+                
+                <div class="actions">
+                    <input type="text" id="cip" maxlength="4" placeholder="0000" oninput="validateCipInput(this)">
+                    <button id="copy-cip-btn" onclick="copyCipToClipboard()">Copy</button>
+                    <button id="copy-both-btn" onclick="copyBothToClipboard()">Copy Both</button>
+                </div>
+
+                <div id="BadAni">
+                    <p id="BadAniResult">BAD ANI Checker</p> 
+                    <input type="number" id="BadAniInput" maxlength="10" placeholder="Número sin lada">
+                    <button id="BadAniButton" onclick="fetchNumber()">Find</button>
+                      
+                </div>
+            </div>
+                  
+        </div>
+
+    <h1 class="SEPARADOR"></h1>
+
+        <div class="container" id="master">
+            <div class="column" id="calendario-column">
+                <input type="text" id="calendario" placeholder="Selecciona una fecha" readonly>
+                <button id="SIN" class="SINFCTSBTN">SIN FACTORES DE RIESGO</button>
+            </div>
+    
+            <div class="column" id="opciones-column">
+                <ul class="opciones-lista">
+                    <li><div class="opcion">OTP (SAFEKEY)</div></li>
+                    <li><div class="opcion">PHONE UPDATE</div></li>              
+                    <li><div class="opcion">MAIL UPDATE</div></li>
+                    <li><div class="opcion">CARD REPLACEMENT</div></li>
+                    <li><div class="opcion">PWP REDEMPTION</div></li>
+                    <li><div class="opcion">POINTS TRANSFER</div></li>
+                    <li><div class="opcion">CPW ALTA / CAMBIO</div></li>
+                    <li><div class="opcion">WELCOME PAPERLESS</div></li>
+                    <li><div class="opcion">MYCA ENROLLED</div></li>
+                    <li><div class="opcion">PIN MAINTENANCE</div></li>
+                    <li><div class="opcion">G-PAY ADDED</div></li>
+                    <li><div class="opcion">G-PAY UNABLE TO ADD</div></li>
+                    <li><div class="opcion">APPLE PAY ADDED</div></li>
+                    <li><div class="opcion">ADDED SUPPLE</div></li>
+                    <li><div class="opcion">LOC INCREASE</div></li>
+                    <li><div class="opcion">ADDRESS UPDATE</div></li>
+                    <li><div class="opcion">DIGITAL CARD ENROLLED</div></li>
+                </ul>
+            </div>
+    
+            <div class="column" id="lista-column">
+                    <div id="lista-final"><!--placeholder--></div>
+                    <div class="botones">
+                        <button id="eliminar-todas">Reset</button>
+                        <button id="reset">Undo</button>
+                        <button id="copiar">Copy</button>
+    
+                        <div class="row">
+                            <div class="SColumn">
+                                <div> <!-- Currency Converter Script -->
+                                    <div style= "width: 140px;">
+                                        <div style="text-align:center;font-size:12px;font-weight:bold;height:22px;">
+                                    </div>
+                                        <script type="text/javascript" src="https://www.exchangeratewidget.com/converter.php?l=en&f=USD&t=MXN&a=1&d=&n=FBF8F1&o=272727&v=3"> </script>
+                                        <a href="https://www.google.com/search?q=dolar+a+peso&sca_esv=95be9b4eddff4e70&source=hp&ei=kpAhZ6SlBpWrptQPqZHv6Ao&iflsig=AL9hbdgAAAAAZyGeojIgTR4B0SwqwHXX9J8flYVtKd8u&ved=0ahUKEwiktuXB_rSJAxWVlYkEHanIG60Q4dUDCA8&uact=5&oq=dolar+a+peso&gs_lp=Egdnd3Mtd2l6Igxkb2xhciBhIHBlc28yCxAAGIAEGLEDGIMBMgsQABiABBixAxiDATIIEAAYgAQYsQMyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDILEAAYgAQYsQMYgwEyBRAAGIAESNYQUKcDWM0OcAB4AJABAZgBmASgAawcqgELMC4yLjMuNC4wLjK4AQPIAQD4AQGYAgqgAqsYqAIKwgIQEAAYAxjlAhjqAhiMAxiPAcICEBAuGAMY5QIY6gIYjAMYjwHCAg4QABiABBixAxiDARiKBcICBRAuGIAEwgILEC4YgAQYsQMYgwHCAgsQLhiABBjRAxjHAcICDhAuGIAEGLEDGNEDGMcBwgIIEC4YgAQYsQPCAhEQLhiABBixAxjRAxiDARjHAcICDRAuGIAEGNEDGMcBGArCAg0QABiABBixAxhGGIICmAP6ApIHCTAuMi4zLjMuMqAHhnk&sclient=gws-wiz&safe=active&ssui=on"
+                                            target="_blank" id="EMR">E</a>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="SColumn" id="SLK">
+                                <p id="SLKSH">Slack Shortcuts</p>
+                                <button id="QSTN" class="SLK">AYUDA</button>
+                                <button id="DSCO" class="SLK">DESCO</button>
+                                <button id="U71" class="SLK">WL U71</button>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+        </div>
+
+    <h1 class="SEPARADOR"></h1>
+
+        <div class="container" id="Final-note-container">
+            <div class="column" id="notes-column">
+                <p class="titulo" id="FNoteT">Final Note</p>
+                
+                <table>
+                    <tr class="table">
+                        <td>Rec Scanner:</td>
+                        <td><button id="SREC" class="FNL">Sí</button></td>
+                        <td><button id="SNREC" class="FNL">No</button></td>
+                        <td><button id="NOSC" class="FNL">Sin</button></td>
+                    </tr>
+                    <tr class="table">
+                        <td>Rec Factores:</td>
+                        <td><button id="FREC" class="FNL">Sí</button></td>
+                        <td><button id="FNREC" class="FNL">No</button></td>
+                        <td><button id="NOFCT" class="FNL">Sin</button></td>
+                    </tr>
+                    <tr class="table">
+                        <td>Demográficos:</td>
+                        <td><button id="DVAL" class="FNL">Sí</button></td>
+                        <td><button id="DNVAL" class="FNL">No</button></td>
+                    </tr>
+                    <tr class="table">
+                        <td>Reemplazo:</td>
+                        <td><button id="RM20" class="FNL">M20</button></td>
+                        <td><button id="ROTA" class="FNL">OTA</button></td>
+                        <td><button id="SINR" class="FNL">Sin</button></td>
+                    </tr>
+                    <tr class="table">
+                        <td>Aplica T9/PK:</td>
+                        <td><button id="T9S" class="FNL">T9 Y</button></td>
+                        <td><button id="T9N" class="FNL">T9 N</button></td>
+                        <td><button id="CPK" class="FNL">PK Y</button></td>
+                    </tr>
+                    <tr class="table">
+                        <td>Rec Wallet:</td>
+                        <td><button id="P6OK" class="FNL">Sí</button></td>
+                        <td><button id="P6CB" class="FNL">No c B</button></td>
+                        <td><button id="P6SB" class="FNL">No s B</button></td>
+                    </tr>
+                    <tr class="table">
+                        <td>IDTO / ATO:</td>
+                        <td><button id="IDTOY" class="FNL">IDTO</button></td>
+                        <td><button id="ATOY" class="FNL">ATO FR</button></td>
+                        <td><button id="ATOMR" class="FNL">ATO MR</button></td>
+                    </tr>
+                    <tr class="table">
+                        <td>Folio:</td>
+                        <td><button id="FLIO" class="FNL">Sí</button></td>
+                        <td><button id="FLION" class="FNL">No</button></td>
+                      </tr>
+                  </table>
+
+                  <button class="NFYF" id="FNF">NF con Demos</button>
+                  <button class="NFYF" id="FNF2">NF sin Demos</button>
+                  <button class="NFYF" id="SGNTR">Firma</button>
+            </div>
+
+            <div class="column">
+
+                <div class="row" id="notes-container">
+                    <ul id="notes-list"></ul>
+                    <!-- Final notes will be added here -->
+                    <div>
+                        <button class="FNoteBTN" id="reset-notes">Reset</button>
+                        <button class="FNoteBTN" id="undo-note">Undo</button>
+                        <button class="FNoteBTN" id="copy-notes">Copy</button>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- <textarea class="big-input" placeholder="Sticky Notes..."></textarea> -->
+
+        </div>
+
+    <h1 class="SEPARADOR"></h1>
+
+        <div id="Category-container">
+
+            <div>
+                <p id="open-modal">Generar Folio ACE</p>
+            </div>
+        
+            <!-- Modal de seleccion de folio -->
+            <div class="modal" id="folio-modal">
+                <div class="modal-content">
+        
+                    <label for="folio-user">Usuario de WCC:</label>
+                    <input type="text" id="folio-user" placeholder="PLFRD ..." maxlength="8">
+        
+                    <label for="folio-type">Tipo de Fraude:</label>
+                    <select id="folio-type">
+                        <option value="ALT">ALT</option>
+                        <option value="ATO">ATO</option>
+                        <option value="CNP" selected>CNP</option>
+                        <option value="FRB">FRB</option>
+                        <option value="FRS">FRS</option>
+                        <option value="LST">LST</option>
+                        <option value="NRC">NRC</option>
+                        <option value="SEF">SEF</option>
+                        <option value="SLN">SLN</option>
+                        <option value="STR">STR</option>
+                        <option value="2FA">2FA</option>
+                    </select>
+        
+                    <label for="folio-mrpl">Reemplazo:</label>
+                    <select id="folio-mrpl">
+                        <option value="SI">Si</option>
+                        <option value="NO" selected>No</option>
+                    </select>
+        
+                    <button id="generate-folio">Done</button>
+                </div>
+            </div>
+        
+            <!-- Tabla de folios generados -->
+            <div class="folio-table-container">
+                <div class="folio-table-scroll">
+                    <table id="folios-table">
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Hora</th>
+                                <th>Fecha</th>
+                                <th>Globestar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="folios-tbody">
+                            <!-- Los folios generados aparecen aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    <footer class="footer">
+        <p>> J U P I T E R <<p>
+        <p>v5.0 09/10/25</p>
+    </footer>
+
+    <!-- Incluir Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+<script>
+// BOTON DE UPDATES -----------------------------------------------------------------------------------------
+function UpdateAlert() {
+  alert("˚⋆⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆˚⋆⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆˚⋆⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆˚⋆⋆｡ﾟ☁︎｡⋆｡ ﾟ☾\n\n                      > J U P I T E R <  v5.0   |   Actualizaciones\n\n⭐ Se actualizó la lista de BAD ANI (09/10/2025) agregando 27 números.\n\nAl utilizar Jupiter ayudas a tus métricas, a la operación y a los cardmembers.\n\n                                           ¡Muchas gracias!\n- Esmeralda Monroy                                 UI, UX & Software Engineer\n- George Gamboa & Diana Caballero      Jupiter Ambassadors\n- Anette Simental                                     Sponsor\n\n˚⋆⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆˚⋆⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆˚⋆⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆˚⋆⋆｡ﾟ☁︎｡⋆｡ ﾟ☾");}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// BAD ANI LIST ---------------------------------------------------------------------------------------------
+    const numberList = [5523076987, 5551558551,];	
+	
+	// COLOCA CADA NUMERO DE BAD ANI SEGUIDO DE UNA COMA Y UN ESPACIO, ES IMPORTANTE QUE SE MANTENGA ESTE FORMATO
+    // SI VAS A AGREGAR UNO O MAS NUMEROS, COPIALOS, COLOCA EL MOUSE AL PRINCIPIO DE LA LINEA 702 Y PEGALOS
+    // SI VAS A BORRAR UNO O MAS NUMEROS, PRESIONA CTRL+F PARA BUSCARLOS, BORRA EL NUMERO Y LA COMA QUE SIGUE
+
+    // ESTOS EJEMPLOS ***NO*** SON CORRECTOS:
+    // 000000000 111111111
+    // 000000000,111111111
+    // 000000000111111111
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// BAD ANI FETCHER
+    function fetchNumber() {
+      const inputValue = parseInt(document.getElementById('BadAniInput').value, 10);
+      const resultElement = document.getElementById('BadAniResult');
+
+      if (numberList.includes(inputValue)) {
+        resultElement.textContent = `BAD ANI: ${inputValue} ⚠️`;
+        resultElement.style.color = 'red';
+        navigator.clipboard.writeText(`Se comunica de BAD ANI: ${inputValue}`)
+      } else {
+        resultElement.textContent = `No BAD ANI ${inputValue} ✔️`;
+        resultElement.style.color = 'green';
+        navigator.clipboard.writeText(`No BAD ANI: ${inputValue}`)
+      }
+    }
+
+// CALENDAR --------------------------------------------------------------------------------------------
+
+// Variable para almacenar la fecha seleccionada (solo día/mes) en el calendario
+let fechaSeleccionada = obtenerFechaActual(); // Por defecto es la fecha actual
+let contadorOpciones = {}; // Objeto para llevar el conteo de las opciones
+let entradas = []; // Array para almacenar las entradas
+
+// Función para obtener la fecha actual en formato DD/MM
+function obtenerFechaActual() {
+    const hoy = new Date();
+    const dia = hoy.getDate().toString().padStart(2, '0');
+    const mes = (hoy.getMonth() + 1).toString().padStart(2, '0'); // Enero es 0, por eso sumamos 1
+    return `${dia}/${mes}`;
+}
+
+ // Configuración del calendario interactivo usando Flatpickr
+ flatpickr("#calendario", {
+    dateFormat: "d/m/Y", // Formato de fecha día/mes/año
+    inline: true, // Muestra el calendario directamente en la página
+    defaultDate: new Date(), // Fecha por defecto es la actual
+    minDate: "17-06-2025", // Fecha mínima
+    maxDate: new Date(), // Fecha máxima
+    onChange: function(selectedDates, dateStr, instance) {
+        // Extraer solo día/mes de la fecha seleccionada
+        const [dia, mes] = dateStr.split('/'); // Separar por "/"
+        fechaSeleccionada = `${dia}/${mes}`; // Solo tomar día y mes
+        console.log("Fecha seleccionada (día/mes): ", fechaSeleccionada);
+    }
+});
+
+// Establecer la fecha actual en el div de la lista final
+const listaFinal = document.getElementById('lista-final');
+const fechaActual = obtenerFechaActual();
+listaFinal.textContent = ` --->   FACTORES AL ${fechaActual}   <---`;
+
+// Firma final
+const firma = `\n   ---   // Global Fraud   ---` ;
+
+// Referencias a las opciones
+const opciones = document.querySelectorAll('.opcion');
+
+// Función para agregar una opción con la fecha seleccionada a la lista final
+opciones.forEach(opcion => {
+    opcion.addEventListener('click', () => {
+        const clave = `${fechaSeleccionada} ${opcion.textContent}`;
+        
+        // Incrementar el contador para la opción
+        if (!contadorOpciones[clave]) {
+            contadorOpciones[clave] = 0;
+        }
+        contadorOpciones[clave]++;
+
+        // Crear la entrada sin mostrar x1
+        let entrada = contadorOpciones[clave] > 1 ? `${clave} x${contadorOpciones[clave]}` : `${clave}`;
+        entradas.push(clave);
+
+        // Actualizar la lista final
+        actualizarListaFinal();
+    });
+});
+
+// Botón de "Reset"
+const botonReset = document.getElementById('reset');
+botonReset.addEventListener('click', () => {
+    if (entradas.length > 0) {
+        const ultimaEntrada = entradas.pop();
+        
+        // Disminuir el contador de la última entrada eliminada
+        if (contadorOpciones[ultimaEntrada] > 1) {
+            contadorOpciones[ultimaEntrada]--;
+        } else {
+            delete contadorOpciones[ultimaEntrada];
+        }
+
+        // Actualizar la lista final
+        actualizarListaFinal();
+    }
+});
+
+// Botón para eliminar todas las opciones
+const botonEliminarTodas = document.getElementById('eliminar-todas');
+botonEliminarTodas.addEventListener('click', () => {
+    // Vaciar el array de entradas y resetear contadores
+    entradas = [];
+    contadorOpciones = {};
+    actualizarListaFinal();
+});
+
+// Actualizar el contenido de la lista de factores
+function actualizarListaFinal() {
+    let contenido = ` --->   FACTORES AL ${fechaActual}   <---`;
+    for (const clave in contadorOpciones) {
+        contenido += contadorOpciones[clave] > 1 ? `\n${clave} x${contadorOpciones[clave]}` : `\n${clave}`;
+    }
+    contenido += firma;
+    listaFinal.textContent = contenido;
+}
+
+// Copiar Factores
+document.getElementById("copiar").addEventListener("click", function() {
+    const texto = listaFinal.innerText;
+    navigator.clipboard.writeText(texto).then(() => {
+        const boton = this;
+        const textoOriginal = boton.innerText;
+        boton.innerText = "✔️";
+        setTimeout(() => {
+            boton.innerText = textoOriginal;
+        }, 3000);
+    });
+});
+
+// VID LOGIC ----------------------------------------------------------------------------------
+    let vidString = "-> VID:";
+    const separator = " +";
+
+    //
+    function addToVidString(option) {
+        vidString += ` ${option}${separator}`;
+        updateVidResultDisplay();
+    }
+
+    function resetVidString() {
+        vidString = "-> VID:";
+        updateVidResultDisplay();
+    }
+
+    function undoVidLast() {
+        const parts = vidString.split(separator).filter(part => part.trim() !== "");
+        if (parts.length > 1) {
+            parts.pop();
+        }
+        vidString = parts.join(separator) + separator;
+        updateVidResultDisplay();
+    }
+    
+    // Copy VID
+    function copyVidToClipboard() {
+        navigator.clipboard.writeText(vidString.slice(0, -separator.length))
+            .then(() => {
+                const copyBtn = document.getElementById('copy-btn');
+                const originalText = copyBtn.innerText;
+                copyBtn.innerText = "✔️";
+                copyBtn.disabled = true;
+                setTimeout(() => {
+                    copyBtn.innerText = originalText;
+                    copyBtn.disabled = false;
+                }, 3000);
+            });
+    }
+    
+    // UPDATE VID DISPLAY   
+    function updateVidResultDisplay() {
+        document.getElementById('vid-result').innerText = vidString.slice(0, -separator.length);
+    }
+
+// CIP LOGIC ------------------------------------------------------------------------------------
+    let cipValue = "";
+    let cipOption = "";
+
+    // VALIDACION DE CIP
+    function validateCipInput(input) {
+
+        input.value = input.value.replace(/\D/g, ""); // Permitir sólo dígitos
+        const message = document.getElementById('cip-message');
+    }
+    
+    // Set CIP
+    function setCipOption(option) {
+        cipValue = document.getElementById('cip').value;
+        const message = document.getElementById('cip-message');
+        if (cipValue.length === 4) {
+            cipOption = option;
+            document.getElementById('cip-result').innerText = `-> CIP: ${cipValue} ${cipOption}`;
+            message.innerText = ""; // Limpia el mensaje
+        }
+    }
+    
+    // Copy CIP
+    function copyCipToClipboard() {
+        if (cipValue.length === 4 && cipOption) {
+            const cipResult = document.getElementById('cip-result').innerText;
+            navigator.clipboard.writeText(cipResult)
+                .then(() => {
+                    const copyCipBtn = document.getElementById('copy-cip-btn');
+                    const originalText = copyCipBtn.innerText;
+                    copyCipBtn.innerText = "✔️";
+                    copyCipBtn.disabled = true;
+                    setTimeout(() => {
+                        copyCipBtn.innerText = originalText;
+                        copyCipBtn.disabled = false;
+                    }, 3000);});}}
+
+    // Copy Both
+    function copyBothToClipboard() {
+        const vidResult = document.getElementById('vid-result').innerText;
+        const cipResult = document.getElementById('cip-result').innerText;
+        const bothResults = `${vidResult}\n${cipResult}`;
+
+        navigator.clipboard.writeText(bothResults)
+            .then(() => {
+                const copyBothBtn = document.getElementById('copy-both-btn');
+                const originalText = copyBothBtn.innerText;
+                copyBothBtn.innerText = "✔️";
+                copyBothBtn.disabled = true;
+                setTimeout(() => {
+                    copyBothBtn.innerText = originalText;
+                    copyBothBtn.disabled = false;
+                }, 3000);});};
+
+//FINAL NOTE LOGIC ----------------------------------------------------------------------------------------------------
+const buttonInfo = {
+    SREC: `- Si reconoce scanner.`,
+    SNREC: `- No reconoce scanner.`,
+    NOSC: `- Sin scanner, reporta cargo.`,
+    FREC: `- Si reconoce factores.`,
+    FNREC: `- No reconoce factores.`,
+    NOFCT: `- Sin factores al ${fechaActual}.`,
+    DVAL: `- Demos validados.`,
+    DNVAL: `- No se requiere actualizar demos.`,
+    RM20: `- Reemplazo M20.`,
+    ROTA: `- Reemplazo a OTA.`,
+    SINR: `- No se genera reemplazo por:`,
+    T9S: `- Se aplica T9.`,
+    T9N: `- No se aplica T9 a peticion del CM.`,
+    CPK: `- Se aplica PK a peticion del CM.`,
+    P6OK: `- Si reconoce wallet registrado.`,
+    P6CB: `- No reconoce Wallet, se da de baja.`,
+    P6SB: `- No reconoce wallet, no hay registro para darle de baja.`,
+    IDTOY: `- Reset de MYCA y CPW por IDTO confirmado.`,
+    ATOY: `- Reset de MYCA y CPW, se abre CLIC _ por ATO confirmado.`,
+    ATOMR: `- Se abre CLIC _ por redencion de MR no reconocida.`,
+    FLIO: `- Ruteo con folio _`,
+    FLION: `- Sin transacciones aprobadas no reconocidas.`,
+    };
+
+const notesList = document.getElementById('notes-list');
+const notes = [];
+
+    Object.keys(buttonInfo).forEach(id => {
+        document.getElementById(id).addEventListener('click', function() {
+            if (!notes.includes(buttonInfo[id])) {
+                notes.push(buttonInfo[id]);
+                renderNotes();
+            }
+        });
+    });
+
+    function renderNotes() {
+        notesList.innerHTML = '';
+        notes.forEach(note => {
+            const li = document.createElement('li');
+            li.textContent = note;
+            notesList.appendChild(li);
+        });
+    }
+
+    document.getElementById('copy-notes').addEventListener('click', function() {
+        if (notes.length > 0) {
+            const text = notes.join('\n');
+            navigator.clipboard.writeText(text)
+        }
+    });
+
+    document.getElementById('undo-note').addEventListener('click', function() {
+        if (notes.length > 0) {
+            notes.pop();
+            renderNotes();
+        }
+    });
+
+    document.getElementById('reset-notes').addEventListener('click', function() {
+        notes.length = 0;
+        renderNotes();
+    });
+
+//CATEGORY -----------------------------------------------------------------------------------------------------------
+    // Abre la ventanilla modal
+    document.getElementById('open-modal').onclick = function() {
+        document.getElementById('folio-modal').style.display = 'flex';
+        document.getElementById('folio-user').focus();
+    };
+
+    // Cierra la ventanilla al hacer click fuera del contenido
+    document.getElementById('folio-modal').onclick = function(e) {
+        if (e.target === this) this.style.display = 'none';
+    };
+
+    // Genera un número aleatorio de 11 dígitos como string
+    function randomFolioNumber() {
+        const now = new Date();
+        const year = String(now.getFullYear()).slice(-1); // Último dígito del año
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Mes dos dígitos
+        const day = String(now.getDate()).padStart(2, '0'); // Día dos dígitos
+        const hour = String(now.getHours()).padStart(2, '0'); // Hora 24h dos dígitos
+        const minute = String(now.getMinutes()).padStart(2, '0'); // Minutos a dos dígitos
+        const second = String(now.getSeconds()).padStart(2, '0'); // Segundos a dos dígitos
+        return `${year}${month}${day}${hour}${minute}${second}`;
+    }
+
+    // Bloquea caracteres invalidos en el campo de usuario
+    document.getElementById('folio-user').addEventListener('keypress', function (event) {
+        const regex = /^[a-zA-Z0-9]+$/;
+        if (!regex.test(event.key)) {
+            event.preventDefault();
+         }
+    });
+
+    // Formatea la fecha y hora en el formato DD/MM/AA y HH:MMAM/PM
+    function getFormattedDateTime() {
+        const now = new Date();
+        // Fecha: DD/MM/AA
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = String(now.getFullYear()).slice(-2);
+        // Hora: HH:MMAM/PM (siempre 2 dígitos para hora y minutos)
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        if (hours === 0) hours = 12;
+        const hourStr = String(hours).padStart(2, '0');
+        return {
+            date: `${day}/${month}/${year}`,
+            time: `${hourStr}:${minutes}${ampm}`
+        };
+    }
+
+    // Botón DONE para genera folio y mostrarlo en la tabla
+    document.getElementById('generate-folio').onclick = function() {
+    const tipo = document.getElementById('folio-type').value;
+    const usuario = document.getElementById('folio-user').value.trim();
+    const mrpl = document.getElementById('folio-mrpl').value === 'NO' ? 'MRPL' : '';
+
+    // No permitir generación si el usuario está vacío
+    if (!usuario) {
+        alert('Ingresa tu usuario (PLFRD...).');
+        document.getElementById('folio-user').focus();
+        return;
+    }
+    
+        // No permitir generación si el usuario no tiene exactamente 8 caracteres
+        if (usuario.length !== 8) {
+        alert('USUARIO INVÁLIDO.');
+        document.getElementById('folio-user').focus();
+        return;
+    }
+
+    const folioNum = randomFolioNumber();
+    const { date, time } = getFormattedDateTime();
+
+    let folio = `${tipo} FOLIO#${folioNum} ${usuario} ${date} ${time}`;
+    if (mrpl) folio += ` ${mrpl}`;
+
+    // Agrega el folio a la tabla
+    addFolioToTable(folioNum, time, date, folio);
+
+    // Cierra el modal
+    document.getElementById('folio-modal').style.display = 'none';
+};
+
+    const folioUserInput = document.getElementById('folio-user');
+    folioUserInput.setAttribute('maxlength', '8');
+    folioUserInput.addEventListener('input', function () {
+        // Solo permite letras mayúsculas y números, y máximo 8 caracteres
+        this.value = this.value
+        .toUpperCase()
+        .replace(/[^A-Z0-9]/g, '')
+        .slice(0, 8);
+}); 
+
+    // Agrega una fila a la tabla de folios
+    function addFolioToTable(folioNum, time, date, folio) {
+        const tbody = document.getElementById('folios-tbody');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="folio-num">${folioNum}</td>
+            <td>${time}</td>
+            <td>${date}</td>
+            <td class="globestar">${folio}</td>
+        `;
+        tbody.appendChild(tr);
+    }
+
+//INBOUND BUTTONS -----------------------------------------------------------------------------------------------------
+document.getElementById('DECL').addEventListener('click', function() {
+const texto = "SE COMUNICA SUP CM POR CARGO DECLINADO";
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('DECL').innerText;
+    document.getElementById('DECL').innerText = "✔️";
+    setTimeout(function() {document.getElementById('DECL').innerText = originalText;}, 3000);});});
+document.getElementById('DESC').addEventListener('click', function() {
+const texto = "SE COMUNICA SUP CM POR CARGO NO RECONOCIDO";
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('DESC').innerText;
+    document.getElementById('DESC').innerText = "✔️";
+    setTimeout(function() {document.getElementById('DESC').innerText = originalText;}, 3000);});});
+document.getElementById('SFK').addEventListener('click', function() {
+const texto = "SE COMUNICA SUP CM POR SFK RECIBIDO NO SOLICITADO / NO RECONOCIDO";
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('SFK').innerText;
+    document.getElementById('SFK').innerText = "✔️";
+    setTimeout(function() {document.getElementById('SFK').innerText = originalText;}, 3000);});});
+document.getElementById('P68').addEventListener('click', function() {
+const texto = "SE COMUNICA SUP CM POR WALLET NO RECONOCIDO";
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('P68').innerText;
+    document.getElementById('P68').innerText = "✔️";
+    setTimeout(function() {document.getElementById('P68').innerText = originalText;}, 3000);});});
+document.getElementById('IDTO').addEventListener('click', function() {
+const texto = "SE COMUNICA SUP CM POR RESET DE CONTRASEÑA DE MYCA NO RECONOCIDO";
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('IDTO').innerText;
+    document.getElementById('IDTO').innerText = "✔️";
+    setTimeout(function() {document.getElementById('IDTO').innerText = originalText;}, 3000);});});
+document.getElementById('INFO').addEventListener('click', function() {
+const texto = "SE COMUNICA SUP CM POR INFO GENERAL DE CTA";
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('INFO').innerText;
+    document.getElementById('INFO').innerText = "✔️";
+    setTimeout(function() {document.getElementById('INFO').innerText = originalText;}, 3000);});});
+document.getElementById('CEN').addEventListener('click', function() {
+const texto = "SE COMUNICA CEN POR INFO / ALERTA, SE VERIFICA SENT INACTIVE MAYOR A TRES MESES, SIN MAS TEMA DE FRAUDE, SE RETIRA CODIGO REMANENTE Y SE PERMITE ACCIONAR." + firma;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('CEN').innerText;
+    document.getElementById('CEN').innerText = "✔️";
+    setTimeout(function() {document.getElementById('CEN').innerText = originalText;}, 3000);});});
+document.getElementById('PIP').addEventListener('click', function() {
+const texto = "SE COMUNICA CEN POR INFO / ALERTA, SE VERIFICA CUENTA SIN TEMA DE FRAUDE ACTIVO, SE RETIRA CODIGO REMANENTE Y SE PERMITE ACCIONAR." + firma;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('PIP').innerText;
+    document.getElementById('PIP').innerText = "✔️";
+    setTimeout(function() {document.getElementById('PIP').innerText = originalText;}, 3000);});});
+document.getElementById('ALERT').addEventListener('click', function() {
+const texto = "SE COMUNICA SUP CM POR ALERTA RECIBIDA";
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('ALERT').innerText;
+    document.getElementById('ALERT').innerText = "✔️";
+    setTimeout(function() {document.getElementById('ALERT').innerText = originalText;}, 3000);});});
+document.getElementById('INB').addEventListener('click', function() {
+const texto = "NO SE TERMINA DE ACCIONAR POR IC.";
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('INB').innerText;
+    document.getElementById('INB').innerText = "✔️";
+    setTimeout(function() {document.getElementById('INB').innerText = originalText;}, 3000);});});
+document.getElementById('SIN').addEventListener('click', function() {
+const texto = `--->    SIN FACTORES AL ${fechaActual}    <---\n-\n` + firma;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('SIN').innerText;
+    document.getElementById('SIN').innerText = "✔️";
+    setTimeout(function() {document.getElementById('SIN').innerText = originalText;}, 3000);});});
+document.getElementById('YARI').addEventListener('click', function() {
+const texto = `SE RECIBE CUENTA RESUELTA EN OB.` + firma;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('YARI').innerText;
+    document.getElementById('YARI').innerText = "✔️";
+    setTimeout(function() {document.getElementById('YARI').innerText = originalText;}, 3000);});});
+document.getElementById('INEF').addEventListener('click', function() {
+const texto = `CUENTA NUEVA / SIN XREF / APLICACION DIGITAL.\nSe valida ID vs selfie, es la misma persona / LN OK / Candados OK / No alterada / Nitidez OK / Se puede realizar RPC al numero celular registrado en la aplicacion.` + firma;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('INEF').innerText;
+    document.getElementById('INEF').innerText = "✔️";
+    setTimeout(function() {document.getElementById('INEF').innerText = originalText;}, 3000);});});
+document.getElementById('DIGI').addEventListener('click', function() {
+const texto = `SE COMUNICA CEN PARA ACTIVACION DE TJT DIGITAL, CM NO RECIBE OTP.`;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('DIGI').innerText;
+    document.getElementById('DIGI').innerText = "✔️";
+    setTimeout(function() {document.getElementById('DIGI').innerText = originalText;}, 3000);});});
+document.getElementById('MRZF').addEventListener('click', function() {
+const texto = `CUENTA NUEVA / SIN XREF / APLICACION DIGITAL.\nSe valida PASAPORTE vs selfie, es la misma persona / MRZ OK / Candados OK / No alterado / Nitidez OK / Se puede realizar RPC al numero celular registrado en la aplicacion.` + firma;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('MRZF').innerText;
+    document.getElementById('MRZF').innerText = "✔️";
+    setTimeout(function() {document.getElementById('MRZF').innerText = originalText;}, 3000);});});
+
+// Shortcuts ---------------------------------------------------------------------------------------------------------
+document.getElementById('QSTN').addEventListener('click', function() {
+const texto = `• CUENTA:\n• WKLIST:\n• CALLER:\n• DUDA:`;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('QSTN').innerText;
+    document.getElementById('QSTN').innerText = "✔️";
+    setTimeout(function() {document.getElementById('QSTN').innerText = originalText;}, 3000);});});
+document.getElementById('DSCO').addEventListener('click', function() {
+const texto = `¿Me ayudarían a ingresar esta desconexión, por favor?\n\n• Nombre y Apellido:\n• Hora de inicio y término:\n• Razón de desconexión:\n• Ticket Number: NA\n• VoBo de:`;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('DSCO').innerText;
+    document.getElementById('DSCO').innerText = "✔️";
+    setTimeout(function() {document.getElementById('DSCO').innerText = originalText;}, 3000);});});
+document.getElementById('U71').addEventListener('click', function() {
+const texto = "¿Me ayudarían con un U71 pofavo? ¡Gracias!";
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('U71').innerText;
+    document.getElementById('U71').innerText = "✔️";
+    setTimeout(function() {document.getElementById('U71').innerText = originalText;}, 3000);});});
+
+// FINAL NOTE BUTTONS -------------------------------------------------------------------------------------------------
+document.getElementById('FNF').addEventListener('click', function() {
+const texto = `- Si reconoce scanner\n- Si reconoce factores\n- Demos validados` + firma;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('FNF').innerText;
+    document.getElementById('FNF').innerText = "✔️";
+    setTimeout(function() {document.getElementById('FNF').innerText = originalText;}, 3000);});});
+document.getElementById('FNF2').addEventListener('click', function() {
+const texto = `- Si reconoce scanner\n- Si reconoce factores\n- No se requiere actualizar demos` + firma;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('FNF2').innerText;
+    document.getElementById('FNF2').innerText = "✔️";
+    setTimeout(function() {document.getElementById('FNF2').innerText = originalText;}, 3000);});});
+document.getElementById('SGNTR').addEventListener('click', function() {
+const texto = firma;
+navigator.clipboard.writeText(texto).then(function() {
+    const originalText = document.getElementById('SGNTR').innerText;
+    document.getElementById('SGNTR').innerText = "✔️";
+    setTimeout(function() {document.getElementById('SGNTR').innerText = originalText;}, 3000);});});
+document.getElementById('copy-notes').addEventListener('click', function() {
+    document.getElementById('copy-notes').innerText = "✔️";
+    setTimeout(function() {document.getElementById('copy-notes').innerText = originalText;}, 3000);});
+</script>
